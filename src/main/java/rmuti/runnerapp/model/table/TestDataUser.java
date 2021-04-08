@@ -15,6 +15,8 @@ public class TestDataUser {
     @Column
     private int id;
     @Column
+    private int tid;
+    @Column
     private String km;
     @Column
     private String time;

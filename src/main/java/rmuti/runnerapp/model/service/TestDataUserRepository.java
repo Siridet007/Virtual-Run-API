@@ -9,4 +9,5 @@ public interface TestDataUserRepository extends JpaRepository<TestDataUser,Integ
     List<TestDataUser> findByType(String type);
     List<TestDataUser> findByUserIdAndType(int userId,String type);
     List<TestDataUser> findByUserIdAndId(int userId,int Id);
+    List<TestDataUser> findByTid(int Tid);
 }

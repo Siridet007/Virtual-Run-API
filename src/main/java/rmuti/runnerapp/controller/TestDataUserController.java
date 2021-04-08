@@ -34,4 +34,10 @@ public class TestDataUserController {
         List<TestDataUser> testDataUserList = testDataUserRepository.findByUserIdAndId(userId, id);
         return testDataUserList;
     }
+    @PostMapping("/show_tid")
+    public Object showTid(@RequestParam int tid){
+        APIResponse res = new APIResponse();
+        List<TestDataUser> db = testDataUserRepository.findByTid(tid);
+        return db;
+    }
 }
