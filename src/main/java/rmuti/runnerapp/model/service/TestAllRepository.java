@@ -13,4 +13,6 @@ public interface TestAllRepository extends JpaRepository<TestAll,Integer> {
     List<TestAll> findByIdAndUserId(int id,int UserId);
 
     List<TestAll> findByTypeAndUserId(String type,int UserId);
+
+    List<TestAll> findByUserId(int UserId);
 }

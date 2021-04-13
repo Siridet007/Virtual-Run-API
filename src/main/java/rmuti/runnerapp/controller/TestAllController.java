@@ -42,6 +42,11 @@ public class TestAllController {
         List<TestAll> _list = testAllRepository.findAllByType(type);
         return _list;
     }
+    @PostMapping("/show_all")
+    public Object showAll(@RequestParam int userId){
+        List<TestAll> _list = testAllRepository.findByUserId(userId);
+        return _list;
+    }
     @PostMapping("/show_list")
     public Object showList(@RequestParam String type,int userId){
         List<TestAll> _list = testAllRepository.findByTypeAndUserId(type, userId);
