@@ -67,9 +67,9 @@ public class TestUserRunController {
         return res;
     }
     @PostMapping("/show_run")
-    public Object showRun(){
+    public Object showRun(@RequestParam int userId){
         APIResponse res = new APIResponse();
-        List<TestUserRun> dbRun = testUserRunRepository.findAll();
+        List<TestUserRun> dbRun = testUserRunRepository.findByUserId(userId);
         res.setData(dbRun);
         return  res;
     }
