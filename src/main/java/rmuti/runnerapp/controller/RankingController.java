@@ -38,6 +38,9 @@ public class RankingController {
     public Object showType(@RequestParam String type){
         APIResponse res = new APIResponse();
         List<Ranking> db = rankingRepository.findByType(type);
+
+        System.out.println("My Sort"+db);
+
         List<Ranking> stringList = new ArrayList<>();
         Collections.sort(db, new Comparator<Ranking>() {
             @Override
@@ -45,13 +48,18 @@ public class RankingController {
                 String valA = new String();
                 String valB = new String();
 
-                try {
+                    valA = o1.getNameAll();
+                    valB = o2.getNameAll();
+
+                int sum1 = valA.compareTo(valB);
+
+                if(sum1 != 0){
+                    return sum1;
+                }
+
                     valA = (String) o1.getTime();
                     valB = (String) o2.getTime();
 
-                }catch (Exception e){
-                    System.out.println(e);
-                }
                 return valA.compareTo(valB);
             }
         });
