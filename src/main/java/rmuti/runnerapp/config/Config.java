@@ -7,7 +7,7 @@ public class Config {
 //    public static final String imgRank = "E://virtualrun//imgdata//ranking//";
 //    public static final String imgSlip = "E://virtualrun//imgdata//slip//";
 
-    public static final String BASE_PATH = System.getenv("base_data");
+    public static final String BASE_PATH = System.getenv("vrun_data_path");
     public static final String imgAll = BASE_PATH+"/allrun/";
     public static final String imgPro = BASE_PATH+"/profile/";
     public static final String imgRank = BASE_PATH+"/ranking/";

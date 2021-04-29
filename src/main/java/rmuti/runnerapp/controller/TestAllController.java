@@ -1,5 +1,6 @@
 package rmuti.runnerapp.controller;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,115 +19,131 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+@Log4j2
 @RestController
 @RequestMapping("/test_all")
 public class TestAllController {
     @Autowired
     private TestAllRepository testAllRepository;
+
     @PostMapping("/save")
-    public Object save(TestAll testAll){
+    public Object save(TestAll testAll) {
         APIResponse res = new APIResponse();
         testAllRepository.save(testAll);
         res.setData(testAll);
         return res;
     }
+
     @PostMapping("/load")
-    public Object load(){
+    public Object load() {
         APIResponse res = new APIResponse();
         List<TestAll> db = testAllRepository.findAll();
         res.setData(db);
         return res;
     }
+
     @PostMapping("/show")
-    public Object show(@RequestParam String type){
+    public Object show(@RequestParam String type) {
         List<TestAll> _list = testAllRepository.findAllByType(type);
         return _list;
     }
+
     @PostMapping("/show_all")
-    public Object showAll(@RequestParam int userId){
+    public Object showAll(@RequestParam int userId) {
         List<TestAll> _list = testAllRepository.findByUserId(userId);
         return _list;
     }
+
     @PostMapping("/show_list")
-    public Object showList(@RequestParam String type,int userId){
+    public Object showList(@RequestParam String type, int userId) {
         List<TestAll> _list = testAllRepository.findByTypeAndUserId(type, userId);
         return _list;
     }
+
     @PostMapping("/show_id")
-    public Object showID(@RequestParam int id){
+    public Object showID(@RequestParam int id) {
         List<TestAll> db = testAllRepository.findByid(id);
         return db;
     }
+
     @PostMapping("/update")
-    public Object update(TestAll testAll, @RequestParam(value = "fileImg",required = false)MultipartFile fileImg){
+    public Object update(TestAll testAll, @RequestParam(value = "fileImg", required = false) MultipartFile fileImg) {
         APIResponse res = new APIResponse();
         Random random = new Random();
-        try{
-            if(fileImg != null){
-                char a = (char) (random.nextInt(26)+'a');
-                testAll.setImgAll(String.valueOf(a)+".png");
-                File fileToSave = new File(Config.imgAll+testAll.getImgAll());
+        try {
+            if (fileImg != null) {
+                char a = (char) (random.nextInt(26) + 'a');
+                testAll.setImgAll(String.valueOf(a) + ".png");
+                File fileToSave = new File(Config.imgAll + testAll.getImgAll());
                 fileImg.transferTo(fileToSave);
                 testAll = testAllRepository.save(testAll);
                 res.setData(testAll);
                 res.setStatus(1);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
             res.setMessage("err");
             res.setStatus(0);
         }
         return res;
     }
+
     @ResponseBody
     @RequestMapping(value = "/image", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
-    public byte[] getResource (@RequestParam String imgAll) throws Exception{
+    public byte[] getResource(@RequestParam String imgAll) throws Exception {
         try {
-            InputStream in = new FileInputStream(Config.imgAll+imgAll);
-            var inImg =  IOUtils.toByteArray(in);
+            InputStream in = new FileInputStream(Config.imgAll + imgAll);
+            var inImg = IOUtils.toByteArray(in);
             in.close();
             return inImg;
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
+
     @PostMapping("/update_list")
-    public Object updateList (TestAll testAll,@RequestParam(value = "fileImg",required = false)MultipartFile fileImg ){
+    public Object updateList(TestAll testAll, @RequestParam(value = "fileImg", required = false) MultipartFile fileImg) {
+        log.info("start update list...");
         APIResponse res = new APIResponse();
         Random random = new Random();
-        try{
-            if(fileImg != null){
+        try {
+            if (fileImg != null) {
                 Optional<TestAll> testAllDb = testAllRepository.findById(testAll.getId());
-                File fileDelete = new File(Config.imgAll+testAllDb.get().getImgAll());
-                if(fileDelete.delete()){
-                    System.out.println("File deleted successfully");
-                }else{
-                    System.out.println("Failed to delete the file");
+                File fileDelete = new File(Config.imgAll + testAllDb.get().getImgAll());
+                if (fileDelete.delete()) {
+                    log.info("File deleted successfully");
+                } else {
+                    log.info("Failed to delete the file");
                 }
-                char a = (char) (random.nextInt(26)+'a');
-                testAll.setImgAll(String.valueOf(a)+".png");
-                File fileToSave = new File(Config.imgAll+testAll.getImgAll());
+                char a = (char) (random.nextInt(26) + 'a');
+                testAll.setImgAll(String.valueOf(a) + ".png");
+                File fileToSave = new File(Config.imgAll + testAll.getImgAll());
                 fileImg.transferTo(fileToSave);
                 testAll = testAllRepository.save(testAll);
                 res.setData(testAll);
                 res.setStatus(1);
-            }else{
+            } else {
                 Optional<TestAll> testAllDb = testAllRepository.findById(testAll.getId());
                 testAll.setImgAll(testAllDb.get().getImgAll());
                 testAll = testAllRepository.save(testAll);
             }
-
-        }catch (Exception e){
+            log.info("end update list...");
+        } catch (Exception e) {
+            log.info(e);
+            e.printStackTrace();
             res.setMessage("err");
             res.setStatus(0);
         }
         return res;
     }
+
     @PostMapping("/remove")
-    public Object remove(@RequestParam int id,@RequestParam int userId){
+    public Object remove(@RequestParam int id, @RequestParam int userId) {
         APIResponse res = new APIResponse();
         String img = null;
-        List<TestAll> testAll = testAllRepository.findByIdAndUserId(id,userId);
-        for(var i=0;i<testAll.size();i++){
+        List<TestAll> testAll = testAllRepository.findByIdAndUserId(id, userId);
+        for (var i = 0; i < testAll.size(); i++) {
             var sum = testAll.get(i);
             System.out.println(sum);
             img = sum.getImgAll();
@@ -134,19 +151,16 @@ public class TestAllController {
         }
         System.out.println(img);
         System.out.println(testAll);
-        try{
-
-            File fileToDelete = new File(Config.imgAll+img);
+        try {
+            File fileToDelete = new File(Config.imgAll + img);
             Files.delete(Path.of(String.valueOf(fileToDelete)));
             testAllRepository.deleteById(id);
             res.setStatus(0);
             res.setMessage("Remove List success!");
-
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             res.setStatus(1);
         }
-
         return res;
     }
 
