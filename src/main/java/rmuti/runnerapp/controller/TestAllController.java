@@ -15,9 +15,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Log4j2
 @RestController
@@ -38,6 +36,23 @@ public class TestAllController {
     public Object load() {
         APIResponse res = new APIResponse();
         List<TestAll> db = testAllRepository.findAll();
+        List<TestAll> stringList = new ArrayList<>();
+        Collections.sort(db, new Comparator<TestAll>() {
+            @Override
+            public int compare(TestAll o1, TestAll o2) {
+                String A = new String();
+                String B = new String();
+
+                A = o1.getDateStart();
+                B = o2.getDateStart();
+
+                return A.compareTo(B);
+            }
+        });
+        for(int i = 0; i < db.size(); i++){
+            stringList.add(db.get(i));
+        }
+
         res.setData(db);
         return res;
     }
@@ -45,12 +60,36 @@ public class TestAllController {
     @PostMapping("/show")
     public Object show(@RequestParam String type) {
         List<TestAll> _list = testAllRepository.findAllByType(type);
+        Collections.sort(_list, new Comparator<TestAll>() {
+            @Override
+            public int compare(TestAll o1, TestAll o2) {
+                String A = new String();
+                String B = new String();
+
+                A = o1.getDateStart();
+                B = o2.getDateStart();
+
+                return A.compareTo(B);
+            }
+        });
         return _list;
     }
 
     @PostMapping("/show_all")
     public Object showAll(@RequestParam int userId) {
         List<TestAll> _list = testAllRepository.findByUserId(userId);
+        Collections.sort(_list, new Comparator<TestAll>() {
+            @Override
+            public int compare(TestAll o1, TestAll o2) {
+                String A = new String();
+                String B = new String();
+
+                A = o1.getDateStart();
+                B = o2.getDateStart();
+
+                return A.compareTo(B);
+            }
+        });
         return _list;
     }
 
