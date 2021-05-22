@@ -7,16 +7,16 @@ public class Config {
 //    public static final String imgRank = "E://virtualrun//imgdata//ranking//";
 //    public static final String imgSlip = "E://virtualrun//imgdata//slip//";
 
-//     public static final String BASE_PATH = System.getenv("vrun_data_path");
-//     public static final String imgAll = BASE_PATH+"/allrun/";
-//     public static final String imgPro = BASE_PATH+"/profile/";
-//     public static final String imgRank = BASE_PATH+"/ranking/";
-//     public static final String imgSlip = BASE_PATH+"/slip/";
+    public static final String BASE_PATH = System.getenv("vrun_data_path");
+    public static final String imgAll = BASE_PATH+"/allrun/";
+    public static final String imgPro = BASE_PATH+"/profile/";
+    public static final String imgRank = BASE_PATH+"/ranking/";
+    public static final String imgSlip = BASE_PATH+"/slip/";
     
-    public static final String imgAll = "/home/acct/allrun/";
-    public static final String imgPro = "/home/acct/profile/";
-    public static final String imgRank = "/home/acct/ranking/";
-    public static final String imgSlip = "/home/acct/slip/";
+//     public static final String imgAll = "/home/acct/allrun/";
+//     public static final String imgPro = "/home/acct/profile/";
+//     public static final String imgRank = "/home/acct/ranking/";
+//     public static final String imgSlip = "/home/acct/slip/";
 
     public static final int DASHBOARD_MOREDATA_SIZE = 10;
 
