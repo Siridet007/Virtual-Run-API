@@ -9,4 +9,5 @@ public interface UserProfileRepository extends JpaRepository<UserProfile,Integer
     UserProfile findByUserNameAndPassWord(String userName,String passWord);
     UserProfile findByUserName(String userName);
     List<UserProfile> findByUserId(int userId);
+    List<UserProfile> findByAu(String Au);
 }

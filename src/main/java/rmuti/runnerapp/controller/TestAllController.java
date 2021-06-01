@@ -7,8 +7,11 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import rmuti.runnerapp.config.Config;
+import rmuti.runnerapp.model.service.NotificationService;
 import rmuti.runnerapp.model.service.TestAllRepository;
+import rmuti.runnerapp.model.service.UserProfileRepository;
 import rmuti.runnerapp.model.table.TestAll;
+import rmuti.runnerapp.model.table.UserProfile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,10 +27,21 @@ public class TestAllController {
     @Autowired
     private TestAllRepository testAllRepository;
 
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private UserProfileRepository userProfileRepository;
+
     @PostMapping("/save")
     public Object save(TestAll testAll) {
         APIResponse res = new APIResponse();
         testAllRepository.save(testAll);
+        List<UserProfile> userProfileList = userProfileRepository.findAll();
+        for(int i = 0; i<userProfileList.size();i++){
+            notificationService.sendToDevice(userProfileList.get(i).getToken(),
+                    "มีรายการวิ่งมาใหม่"+testAll.getNameAll(), "ไปดูเร็ว");
+        }
         res.setData(testAll);
         return res;
     }
@@ -119,6 +133,12 @@ public class TestAllController {
                 res.setData(testAll);
                 res.setStatus(1);
             }
+            List<UserProfile> userProfileList = userProfileRepository.findAll();
+            for(int i = 0; i<userProfileList.size();i++){
+                notificationService.sendToDevice(userProfileList.get(i).getToken(),
+                        "มีรายการวิ่งมาใหม่"+testAll.getNameAll(), "ไปดูเร็ว");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             res.setMessage("err");

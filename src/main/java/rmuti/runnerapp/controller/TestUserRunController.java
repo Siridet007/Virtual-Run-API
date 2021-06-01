@@ -66,6 +66,13 @@ public class TestUserRunController {
         res.setData(userRunList);
         return res;
     }
+    @PostMapping("/load_check")
+    public Object loadCheck(@RequestParam int id){
+        APIResponse res = new APIResponse();
+        List<TestUserRun> userRunList = testUserRunRepository.findByid(id);
+        res.setData(userRunList);
+        return res;
+    }
     @PostMapping("/show_run")
     public Object showRun(@RequestParam int userId){
         APIResponse res = new APIResponse();

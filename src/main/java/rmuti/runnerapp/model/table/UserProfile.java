@@ -1,7 +1,7 @@
 package rmuti.runnerapp.model.table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+
 import javax.persistence.*;
 
 
@@ -16,7 +16,7 @@ public class UserProfile {
     @Column(name = "user_name")
     private String userName;
 
-    @JsonIgnore
+//    @JsonIgnore
     @Column(name = "pass_word")
     private String passWord;
 
@@ -31,4 +31,10 @@ public class UserProfile {
 
     @Column(name = "img_profile")
     private String imgProfile;
+
+    @Column
+    private String autho;
+
+    @Column
+    private String token;
 }

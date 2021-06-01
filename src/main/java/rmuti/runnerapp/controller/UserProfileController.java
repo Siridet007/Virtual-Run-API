@@ -86,6 +86,13 @@ public class UserProfileController {
         res.setData(userProfiles);
         return res;
     }
+    @PostMapping("/show_au")
+    public Object showAu(String Au){
+        APIResponse res = new APIResponse();
+        List<UserProfile> _list = userProfileRepository.findByAu(Au);
+        res.setData(_list);
+        return res;
+    }
     @PostMapping("/save_img")
     public Object saveImg(UserProfile userProfile,@RequestParam(value = "fileImg",required = false) MultipartFile fileImg){
         APIResponse res = new APIResponse();
