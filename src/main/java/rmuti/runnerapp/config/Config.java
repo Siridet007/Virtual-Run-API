@@ -12,6 +12,11 @@ public class Config {
     public static final String imgPro = BASE_PATH+"/profile/";
     public static final String imgRank = BASE_PATH+"/ranking/";
     public static final String imgSlip = BASE_PATH+"/slip/";
+    
+//     public static final String imgAll = "/home/acct/allrun/";
+//     public static final String imgPro = "/home/acct/profile/";
+//     public static final String imgRank = "/home/acct/ranking/";
+//     public static final String imgSlip = "/home/acct/slip/";
 
     public static final int DASHBOARD_MOREDATA_SIZE = 10;
 
