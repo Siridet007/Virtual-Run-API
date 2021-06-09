@@ -37,11 +37,6 @@ public class TestAllController {
     public Object save(TestAll testAll) {
         APIResponse res = new APIResponse();
         testAllRepository.save(testAll);
-        List<UserProfile> userProfileList = userProfileRepository.findAll();
-        for(int i = 0; i<userProfileList.size();i++){
-            notificationService.sendToDevice(userProfileList.get(i).getToken(),
-                    "มีรายการวิ่งมาใหม่"+testAll.getNameAll(), "ไปดูเร็ว");
-        }
         res.setData(testAll);
         return res;
     }
@@ -133,12 +128,6 @@ public class TestAllController {
                 res.setData(testAll);
                 res.setStatus(1);
             }
-            List<UserProfile> userProfileList = userProfileRepository.findAll();
-            for(int i = 0; i<userProfileList.size();i++){
-                notificationService.sendToDevice(userProfileList.get(i).getToken(),
-                        "มีรายการวิ่งมาใหม่"+testAll.getNameAll(), "ไปดูเร็ว");
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
             res.setMessage("err");
