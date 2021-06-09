@@ -27,9 +27,6 @@ public class TestAllController {
     private TestAllRepository testAllRepository;
 
     @Autowired
-    private NotificationService notificationService;
-
-    @Autowired
     private UserProfileRepository userProfileRepository;
 
     @PostMapping("/save")
