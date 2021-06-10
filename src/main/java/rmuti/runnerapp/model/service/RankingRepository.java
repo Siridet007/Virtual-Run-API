@@ -8,4 +8,5 @@ import java.util.List;
 public interface RankingRepository extends JpaRepository<Ranking,Integer> {
     List<Ranking> findByType(String Type);
     List<Ranking> findByUserId(int UserId);
+    List<Ranking> findByIdAndUserId(int Id,int UserId);
 }

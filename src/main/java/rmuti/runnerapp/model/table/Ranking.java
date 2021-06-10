@@ -14,6 +14,8 @@ public class Ranking {
     @Column(name = "user_id")
     private int userId;
     @Column
+    private int id;
+    @Column
     private String name;
     @Column(name = "name_all")
     private String nameAll;

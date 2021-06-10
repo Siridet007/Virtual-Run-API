@@ -28,6 +28,8 @@ public class TestAll {
     private int userId;
     @Column
     private String price;
+    @Column
+    private String accessories;
     @Column(name = "create_date")
     private Date createDate = new Date();
 

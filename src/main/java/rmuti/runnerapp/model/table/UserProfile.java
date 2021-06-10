@@ -35,6 +35,4 @@ public class UserProfile {
     @Column
     private String autho;
 
-    @Column
-    private String token;
 }

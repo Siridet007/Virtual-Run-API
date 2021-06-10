@@ -34,6 +34,13 @@ public class RankingController {
         res.setMessage("ggg");
         return res;
     }
+    @PostMapping("/show")
+    public Object show(@RequestParam int UserId){
+        APIResponse res = new APIResponse();
+        List<Ranking> db = rankingRepository.findByUserId(UserId);
+        res.setData(db);
+        return res;
+    }
     @PostMapping("/show_type")
     public Object showType(@RequestParam String type){
         APIResponse res = new APIResponse();

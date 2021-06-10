@@ -23,4 +23,6 @@ public class TestUserRun {
     private String status;
     @Column(name = "img_slip")
     private String imgSlip;
+    @Column
+    private String accessories;
 }

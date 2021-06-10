@@ -59,6 +59,23 @@ public class TestUserRunController {
         }
         return res;
     }
+    @PostMapping("/check_status")
+    public Object checkStatus(@RequestParam int id,@RequestParam int userId){
+        APIResponse res = new APIResponse();
+        TestUserRun testUserRun = testUserRunRepository.findByIdAndUserId(id, userId);
+        System.out.println(testUserRun);
+        var _status = testUserRun.getStatus();
+        System.out.println(_status);
+        var ddd = Integer.parseInt(_status);
+
+        if(ddd == 0){
+            res.setStatus(0);
+        }else {
+            res.setStatus(1);
+        }
+        return res;
+    }
+
     @PostMapping("/load")
     public Object load(@RequestParam int id,@RequestParam int userId){
         APIResponse res = new APIResponse();
