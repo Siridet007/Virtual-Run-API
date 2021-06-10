@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import rmuti.runnerapp.config.Config;
-import rmuti.runnerapp.model.service.NotificationService;
 import rmuti.runnerapp.model.service.TestAllRepository;
 import rmuti.runnerapp.model.service.UserProfileRepository;
 import rmuti.runnerapp.model.table.TestAll;
@@ -28,9 +27,6 @@ import java.util.*;
 public class TestAllController {
     @Autowired
     private TestAllRepository testAllRepository;
-
-    @Autowired
-    private NotificationService notificationService;
 
     @Autowired
     private UserProfileRepository userProfileRepository;
