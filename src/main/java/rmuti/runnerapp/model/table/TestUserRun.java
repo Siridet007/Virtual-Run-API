@@ -25,4 +25,6 @@ public class TestUserRun {
     private String imgSlip;
     @Column
     private String accessories;
+    @Column
+    private String active;
 }

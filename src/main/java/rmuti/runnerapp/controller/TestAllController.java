@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -36,45 +35,15 @@ public class TestAllController {
         APIResponse res = new APIResponse();
         testAllRepository.save(testAll);
         res.setData(testAll);
+        res.setStatus(1);
         return res;
     }
 
     @PostMapping("/load")
-    public Object load() throws ParseException {
+    public Object load(){
         APIResponse res = new APIResponse();
         List<TestAll> db = testAllRepository.findAll();
         List<TestAll> stringList = new ArrayList<>();
-
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy",Locale.ENGLISH);
-//        LocalDateTime now = LocalDateTime.now();
-//        System.out.println(dtf.format(now));
-//
-//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
-//        String dateInString = "07/06/2021";
-//
-//        try {
-//            Date date = formatter.parse(dateInString);
-//            System.out.println(date);
-////            var myDate = formatter.format(date);
-////            System.out.println(myDate);
-//
-//            var myDatedd = dtf.format(now);
-//            Date myDateNow = formatter.parse(myDatedd);
-//            System.out.println(myDatedd);
-//            System.out.println(myDateNow);
-////            Date _datetime = formatter.parse(_date);
-////            System.out.println(formatter.format(_datetime));
-//            for(var j=0;j<db.size();j++){
-//                var sum = db.get(j);
-//                var aa = sum.getDateStart();
-//                System.out.println(aa);
-//                Date isDate = formatter.parse(aa);
-//                System.out.println(isDate);
-//                if(myDateNow.before(isDate)){
-//                    System.out.println(true);
-//
-//                }else{
-//                    System.out.println(false);
                     Collections.sort(db, new Comparator<TestAll>() {
                         @Override
                         public int compare(TestAll o1, TestAll o2) {
@@ -91,14 +60,6 @@ public class TestAllController {
                         stringList.add(db.get(i));
                     }
                     res.setData(db);
-//                }
-//            }
-//
-//
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-
         return res;
     }
 
